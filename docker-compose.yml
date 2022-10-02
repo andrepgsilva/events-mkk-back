@@ -22,6 +22,7 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
+            - events-mkk_default
         depends_on:
             - mysql
             - redis
@@ -41,6 +42,7 @@ services:
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
+            - events-mkk_default
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
@@ -53,6 +55,7 @@ services:
             - 'sail-redis:/data'
         networks:
             - sail
+            - events-mkk_default
         healthcheck:
             test: ["CMD", "redis-cli", "ping"]
             retries: 3
@@ -60,6 +63,8 @@ services:
 networks:
     sail:
         driver: bridge
+    events-mkk_default:
+        external: true
 volumes:
     sail-mysql:
         driver: local

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\EventsController;
+use App\Http\Controllers\API\PaymentIntentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::get('/events', [EventsController::class, 'index']);
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('/payment-intent', [PaymentIntentController::class, 'index']);
 });

@@ -8,13 +8,14 @@ use Tests\TestCase;
 
 class EventTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    use RefreshDatabase;
+
+    public function test_it_can_get_the_latest_events()
     {
-        
+        $this->seed();
+
+        $response = $this->get('/api/events');
+
+        $response->assertOk();
     }
 }
